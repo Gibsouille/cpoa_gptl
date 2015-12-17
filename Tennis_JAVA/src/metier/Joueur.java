@@ -4,7 +4,7 @@
  * Purpose: Defines the Class Joueur
  ***********************************************************************/
 
-package planningMatchs;
+package metier;
 
 import java.util.*;
 

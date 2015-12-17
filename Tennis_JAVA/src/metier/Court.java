@@ -4,7 +4,7 @@
  * Purpose: Defines the Class Court
  ***********************************************************************/
 
-package tennis_java.metier;
+package metier;
 
 import java.util.*;
 

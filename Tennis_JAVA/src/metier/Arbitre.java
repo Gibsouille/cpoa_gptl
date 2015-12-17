@@ -4,7 +4,7 @@
  * Purpose: Defines the Class Arbitre
  ***********************************************************************/
 
-package tennis_java.metier;
+package metier;
 
 import java.util.*;
 

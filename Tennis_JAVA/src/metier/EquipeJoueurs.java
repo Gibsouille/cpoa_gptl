@@ -4,9 +4,10 @@
  * Purpose: Defines the Class EquipeJoueurs
  ***********************************************************************/
 
-package tennis_java.metier;
+package metier;
 
 import java.util.*;
+import metier.Joueur;
 
 /** @pdOid 5d78afb0-acaf-42a8-846f-da6159b7b680 */
 public class EquipeJoueurs {
