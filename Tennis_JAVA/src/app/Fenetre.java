@@ -1,5 +1,7 @@
 package app;
 
+import javax.swing.JOptionPane;
+
 public class Fenetre extends javax.swing.JFrame {
 
     /**
@@ -19,50 +21,116 @@ public class Fenetre extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane = new javax.swing.JTabbedPane();
-        panPlanning = new javax.swing.JPanel();
-        panMatchs = new javax.swing.JPanel();
-        panPersonnel = new javax.swing.JPanel();
+        jPanPlanning = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablePlanning = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabType = new javax.swing.JLabel();
+        jComBoxType = new javax.swing.JComboBox<>();
+        jBtnGenerer = new javax.swing.JButton();
+        jPanMatchs = new javax.swing.JPanel();
+        jPanPersonnel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout panPlanningLayout = new javax.swing.GroupLayout(panPlanning);
-        panPlanning.setLayout(panPlanningLayout);
-        panPlanningLayout.setHorizontalGroup(
-            panPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jTablePlanning.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"
+            }
+        ));
+        jTablePlanning.setRowSelectionAllowed(false);
+        jTablePlanning.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTablePlanning);
+
+        jLabType.setText("Type");
+
+        jComBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Qualifications", "Tournois (simple)", "Tournois (double)" }));
+
+        jBtnGenerer.setText("Générer Planning");
+        jBtnGenerer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnGenererActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnGenerer)
+                .addGap(32, 32, 32))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabType)
+                    .addComponent(jComBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnGenerer))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanPlanningLayout = new javax.swing.GroupLayout(jPanPlanning);
+        jPanPlanning.setLayout(jPanPlanningLayout);
+        jPanPlanningLayout.setHorizontalGroup(
+            jPanPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanPlanningLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanPlanningLayout.setVerticalGroup(
+            jPanPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanPlanningLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(280, Short.MAX_VALUE))
+        );
+
+        jTabbedPane.addTab("Planning", jPanPlanning);
+
+        javax.swing.GroupLayout jPanMatchsLayout = new javax.swing.GroupLayout(jPanMatchs);
+        jPanMatchs.setLayout(jPanMatchsLayout);
+        jPanMatchsLayout.setHorizontalGroup(
+            jPanMatchsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 907, Short.MAX_VALUE)
         );
-        panPlanningLayout.setVerticalGroup(
-            panPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+        jPanMatchsLayout.setVerticalGroup(
+            jPanMatchsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 447, Short.MAX_VALUE)
         );
 
-        jTabbedPane.addTab("Planning", panPlanning);
+        jTabbedPane.addTab("Matchs", jPanMatchs);
 
-        javax.swing.GroupLayout panMatchsLayout = new javax.swing.GroupLayout(panMatchs);
-        panMatchs.setLayout(panMatchsLayout);
-        panMatchsLayout.setHorizontalGroup(
-            panMatchsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanPersonnelLayout = new javax.swing.GroupLayout(jPanPersonnel);
+        jPanPersonnel.setLayout(jPanPersonnelLayout);
+        jPanPersonnelLayout.setHorizontalGroup(
+            jPanPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 907, Short.MAX_VALUE)
         );
-        panMatchsLayout.setVerticalGroup(
-            panMatchsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+        jPanPersonnelLayout.setVerticalGroup(
+            jPanPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 447, Short.MAX_VALUE)
         );
 
-        jTabbedPane.addTab("Matchs", panMatchs);
-
-        javax.swing.GroupLayout panPersonnelLayout = new javax.swing.GroupLayout(panPersonnel);
-        panPersonnel.setLayout(panPersonnelLayout);
-        panPersonnelLayout.setHorizontalGroup(
-            panPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
-        );
-        panPersonnelLayout.setVerticalGroup(
-            panPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
-        );
-
-        jTabbedPane.addTab("Personnel", panPersonnel);
+        jTabbedPane.addTab("Personnel", jPanPersonnel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,10 +152,24 @@ public class Fenetre extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnGenererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGenererActionPerformed
+        /*try {
+            jBtnGenerer.setEnabled(false);
+        } catch () {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }*/
+    }//GEN-LAST:event_jBtnGenererActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnGenerer;
+    private javax.swing.JComboBox<String> jComBoxType;
+    private javax.swing.JLabel jLabType;
+    private javax.swing.JPanel jPanMatchs;
+    private javax.swing.JPanel jPanPersonnel;
+    private javax.swing.JPanel jPanPlanning;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane;
-    private javax.swing.JPanel panMatchs;
-    private javax.swing.JPanel panPersonnel;
-    private javax.swing.JPanel panPlanning;
+    private javax.swing.JTable jTablePlanning;
     // End of variables declaration//GEN-END:variables
 }

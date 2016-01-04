@@ -1,4 +1,4 @@
-package dao;
+package accesAuxDonnees;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
