@@ -8,11 +8,12 @@
 	
 	Class Billet
 	{
+		private $_numBillet;
 		private $_categorie;
 		private $_match;
 		private $_internaute;
 		private $_promotion;
-		private $_type;
+		private $_typeBillet;
 		private $_connect;
 		
 		function __construct($connect, $id=null, $nom=null, $prenom=null)

@@ -1,4 +1,8 @@
 <?php
+	require_once("Model/BDD.php");
+	
+	$connect = new Connection();
+	
 	if(isset($_GET['etape']))
 	{
 		if ($_GET['etape']=='match')
