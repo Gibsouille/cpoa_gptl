@@ -1,0 +1,132 @@
+body
+{
+	margin : 0em;
+	background-color : black;
+	background-repeat:no-repeat;
+	background-size: 100%;
+	width : 100%;
+	background-attachment:fixed;
+	font-family: "Rajdhani",sans-serif;
+}
+
+header
+{
+	top : 0px;
+	width : 100%;
+	color : #636060;
+	background-color : #2A292B;
+	height : 4em;
+	position : fixed;
+}
+
+a:visited
+{
+	color : #636060;
+}
+
+a:link
+{
+	text-decoration : none;
+	color : #636060;
+}
+
+h1 a:link
+{
+	margin-top : 13px;
+	margin-left : 3em;
+	color : #F90;
+}
+
+h1 a:visited
+{
+	margin-top : 13px;
+	margin-left : 3em;
+	color : #F90;
+}
+
+nav li
+{
+	display : inline-block;
+	padding : 22px;
+}
+
+nav li:hover
+{
+	background-color : #F90;
+}
+
+h1, nav
+{
+	display : inline-block;
+}
+
+nav
+{
+
+	float : right;
+	margin-right : 5em;
+}
+
+ul
+{
+	margin : 0em;
+	height : 4em;
+}
+
+#contenu
+{
+	margin : 5em 4em 2em 4em;
+	background-color : rgba(0,0,0,0.8);
+	padding : 1em;
+	color : white;
+}
+
+table
+{
+	color : white;
+}
+
+table td
+{
+	border-style : double;
+}
+
+footer
+{
+	color : white;
+	text-align : center;
+}
+
+#session_co
+{
+	font-size : 10px;
+	margin-right : 1em;
+	float : right;
+	margin-top : 13px;
+}
+
+#session_co p
+{
+	display : inline-block;
+	padding-right : 5px;
+}
+
+nav, #session_co
+{
+	display : inline-block;
+}
+
+#session_co a:hover
+{
+	color : #F90;
+}
+
+span
+{
+	display : block;
+}
+
+span p, span input
+{
+	display : inline-block;
+}
