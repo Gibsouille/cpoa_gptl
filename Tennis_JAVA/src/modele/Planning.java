@@ -18,6 +18,7 @@ public class Planning extends AbstractTableModel {
    private String typePlanning;
    private List<Match> listeMatchs;
    private DaoMatch dao;
+   private String[] jour = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
    
    public Planning(int id, String type, DaoMatch dao) {
        this.idPlanning = id;
@@ -68,17 +69,19 @@ public class Planning extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.listeMatchs.size();
     }
 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.listeMatchs.get(0).getTypeMatch().equals("Qualifications"))
+            return 2;
+        return this.jour.length;
     }
 
     @Override
     public Object getValueAt(int i, int i1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "";
     }
 
 }

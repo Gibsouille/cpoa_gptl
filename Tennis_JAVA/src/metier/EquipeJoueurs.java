@@ -24,7 +24,7 @@ public class EquipeJoueurs {
    }
    
    /** @pdOid 29f52f9c-dee5-413a-afc0-4db711834d37 */
-   public EquipeJoueurs() {
+   public EquipeJoueurs(int id, String j1, String j2) {
       // TODO: implement
    }
    
