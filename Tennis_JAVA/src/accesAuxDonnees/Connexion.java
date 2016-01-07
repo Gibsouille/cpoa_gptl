@@ -7,9 +7,7 @@ import java.sql.*;
 import java.util.Properties;
 
 public class Connexion {
-    private static Connection conn;
-    
-    private static Connection getConnexion(String nomFichierProp) throws SQLException, ClassNotFoundException, IOException {
+    public static Connection getConnexion(String nomFichierProp) throws SQLException, ClassNotFoundException, IOException {
         Properties props = new Properties();
         URL urlFichierProp = Connexion.class.getResource(nomFichierProp);
         BufferedInputStream bis = null;
