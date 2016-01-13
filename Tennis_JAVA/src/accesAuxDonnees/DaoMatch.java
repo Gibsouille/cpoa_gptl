@@ -61,7 +61,7 @@ public class DaoMatch extends DAO<Match>{
         Connection co = Connexion.getConnexion("connexion.properties");
         Statement stm = co.createStatement();
         PreparedStatement pstmEquipe = co.prepareStatement("SELECT * FROM EquipeJoueurs WHERE idEquipe = ?");
-        ResultSet rsMatchs = stm.executeQuery("SELECT * FROM Matchs;"), rsEquipe;
+        ResultSet rsMatchs = stm.executeQuery("SELECT * FROM Matchs ORDER BY dateMatch, trancheHoraire"), rsEquipe;
         EquipeJoueurs eq1 = null, eq2 = null;
         Joueur joueur1, joueur2;
         int idJoueur1, idJoueur2, num, numCourt, idEquipe1, idEquipe2;
@@ -124,7 +124,7 @@ public class DaoMatch extends DAO<Match>{
             String type = rsMatchs.getString("typeMatch"), modeJeu = rsMatchs.getString("modeJeu"), trancheHoraire = rsMatchs.getString("trancheHoraire"),
                    phaseFinale = rsMatchs.getString("phaseFinale");
             
-            Date date = rsMatchs.getDate("date");
+            Date date = rsMatchs.getDate("dateMatch");
             
             liste.add(new Match(num, numCourt, type, date, modeJeu, trancheHoraire, phaseFinale, eq1, eq2));
         }

@@ -166,13 +166,16 @@ public class Fenetre extends javax.swing.JFrame {
 
     private void jComBoxTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComBoxTypeActionPerformed
         if (this.jComBoxType.getSelectedItem().equals("Qualifications")) {
-            
+            this.modelePlanning.setType("Qualifications");
+            this.modelePlanning.fireTableStructureChanged();
         }
         else if (this.jComBoxType.getSelectedItem().equals("Tournois (simple)")) {
-            //this.jTablePlanning.setValueAt(, WIDTH, WIDTH);
+            this.modelePlanning.setType("Tournois (simple)");
+            this.modelePlanning.fireTableStructureChanged();
         }
         else {
-            
+            this.modelePlanning.setType("Tournois (double)");
+            this.modelePlanning.fireTableStructureChanged();
         }
     }//GEN-LAST:event_jComBoxTypeActionPerformed
 

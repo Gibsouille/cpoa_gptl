@@ -15,6 +15,7 @@ import metier.Match;
 
 public class Planning extends AbstractTableModel {
     private int idPlanning;
+    private String type;
     private List<Match> listeMatchs;
     private List<Match> matchsQualif;
     private List<Match> matchsSimple;
@@ -24,6 +25,7 @@ public class Planning extends AbstractTableModel {
 
     public Planning(int id, DaoMatch dao) {
         this.idPlanning = id;
+        this.type = "Qualifications";
         this.dao = dao;
         listeMatchs = new ArrayList<>();
         matchsQualif = new ArrayList<>();
@@ -64,6 +66,14 @@ public class Planning extends AbstractTableModel {
     public void setIdPlanning(int idPlanning) {
         this.idPlanning = idPlanning;
     }
+    
+    public String getType() {
+        return this.type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public List<Match> getListeMatchs() {
         return listeMatchs;
@@ -75,25 +85,28 @@ public class Planning extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return this.listeMatchs.size();
+        return 5;
     }
 
     @Override
     public int getColumnCount() {
-        if (this.listeMatchs.isEmpty())
-            return this.jour.length;
-        if (this.listeMatchs.get(0).getTypeMatch().equals("Qualifications"))
+        if (this.type.equals("Qualifications"))
             return 2;
         return this.jour.length;
     }
     
     @Override
     public String getColumnName(int i) {
+        if (this.type.equals("Qualifications"))
+            return jour[i+5];
         return jour[i];
     }
 
     @Override
-    public Object getValueAt(int i, int i1) {
+    public Object getValueAt(int row, int col) {
+        if (this.type.equals("Qualifications")) {
+            
+        }
         return "";
     }
 
