@@ -2,7 +2,7 @@
 
 	require_once("BDD.php");
 	
-	Class Match
+	Class Promotion
 	{
 		private $_nomPromotion;
 		private $_code;

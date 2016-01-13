@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="Web/CSS/common.css"/>
-		<link rel="stylesheet" type="text/css" href="Web/CSS/<?php echo $css?>"/>
+		<link rel="stylesheet" type="text/css" href="../Web/CSS/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../Web/CSS/<?php echo $css?>"/>
 		<meta charset="utf-8"/>
 		<title>Billetterie GPTL - <?php echo $title?></title>
 	</head>
 	<body>
 		<header>
-			<h1><a href="index.php">Billetterie</a></h1>
+			<h1><a href="../index.php">Billetterie</a></h1>
 			<?php
 					if(!isset($_SESSION['login']))
 					{

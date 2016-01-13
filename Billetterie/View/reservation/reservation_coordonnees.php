@@ -1,19 +1,27 @@
-﻿<?php require_once("View/menu.php");?>
+﻿<?php require_once("../View/menu.php");?>
 	<section id="contenu">
 		<h2>Réservation de billets</h2>
 		<h3>Coordonnées</h3>
-		<span>
-			<p>Nom :</p>
-			<input name="name">
-		</span>
-		<span>
-			<p>Prénom :</p>
-			<input name="surname">
-		</span>
-		<span>
-			<p>Adresse e-mail :</p>
-			<input name="email">
-		</span>
-		<a href="index.php?page=client&action=reserver&etape=recapitulatif"><button type="submit">Valider</button></a>
+		<?php
+			if (isset($errorMessage))
+			{
+				echo '<p>' . $errorMessage . '</p>';
+			}
+		?>
+		<form action="ControllerClient.php?action=reserver&etape=recapitulatif" method="post">
+			<span>
+				<label class = "inputNames">Nom :</label>
+				<input name="nomClient"  class = "input">
+			</span>
+			<span>
+				<label class = "inputNames">Prénom :</label>
+				<input name="prenomClient"  class = "input">
+			</span>
+			<span>
+				<label class = "inputNames">Adresse e-mail :</label>
+				<input name="emailClient" class = "input">
+			</span>
+			<a href="ControllerClient.php?action=reserver&etape=recapitulatif"><button class="btn btn-primary" type="submit">Valider</button></a>
+		</form>
 	</section>
-<?php require_once("View/footer.php");?>
+<?php require_once("../View/footer.php");?>

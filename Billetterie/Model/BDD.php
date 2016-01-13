@@ -16,6 +16,7 @@
 				$this->_user='p1405504';
 				$this->_password='214176';
 				$this->_dbname='p1405504';
+				$this->_bdd = new PDO('mysql:host='.$this->_host.';dbname='.$this->_dbname.';charset=utf8',$this->_user, $this->_password);
 			}
 			catch (Exception $e)
 			{

@@ -14,13 +14,13 @@
 				$this->_connect=$connect;
 				$requete = 'select numMatch
 							from Matchs
-							where typeMatch = "tournoi";';
+							where typeMatch = "tournoi" order by dateMatch asc;';
 				$query = $this->_connect->getBDD()->prepare($requete);
 				$query ->execute(array());
 				while($data=$query->fetch())
 				{
-					$match = new Match($this->_connect);
-					$match->findMatch($data[0]);
+					$match = new Match($this->_connect, $data[0]);
+					$match->findMatch();
 					$this->_collection[] = $match;
 				}
 				$query -> closeCursor();
@@ -33,7 +33,6 @@
 				{
 					$tmpString .= $match;
 				}
-				$tmpString = $tmpString . '</table>';
 				return $tmpString;
 			}
 		}

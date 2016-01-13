@@ -15,25 +15,25 @@
 		private $_idEquipe1;
 		private $_idEquipe2;
 		
-		function __construct($connect)
+		function __construct($connect, $numMatch)
 		{
 			$this->_connect=$connect;
+			$this->_numMatch = $numMatch;
 		}
 		
-		public function findMatch($numMatch)
+		public function findMatch()
 		{
-			$requete = 'select , nom_film, annee_film, score, Votes
-						from films
-						where id_film=:id_film;';
-			$query = $this->_connect->getBDD()->prepare($requete);
-			$query ->execute(array('id_film' => $id_film));
+			$requeteMatch = 'select dateMatch, trancheHoraire, modeJeu, phaseFinale
+						from Matchs
+						where numMatch=:numMatch;';
+			$query = $this->_connect->getBDD()->prepare($requeteMatch);
+			$query ->execute(array('numMatch' => $this->_numMatch));
 			while($data=$query->fetch())
 			{
-				$this->_id = $data[0];
-				$this->_titre = $data[1];
-				$this->_annee = $data[2];
-				$this->_score = $data[3];
-				$this->_vote = $data[4];
+				$this->_dateMatch = $data[0];
+				$this->_trancheHoraire = $data[1];
+				$this->_modeJeu = $data[2];
+				$this->_phaseFinale = $data[3];
 			}
 			$query -> closeCursor();
 		}
@@ -51,7 +51,7 @@
 		
 		function __toString()
 		{
-			return '<tr><td><input name="numMatch" type="radio" value="' . $this->_numMatch . '">Je suis licencié</span></td><td>' . $this->_dateMatch . '</td><td>' . $this->_trancheHoraire . '</td><td>' . $this->_modeJeu . '</td><td>' . $this->_phaseFinale . '</td></tr>';
+			return '<tr><td><input name="numMatch" type="radio" value="' . $this->_numMatch . '"></td><td>' . $this->_dateMatch . '</td><td>' . $this->_trancheHoraire . '</td><td>' . $this->_modeJeu . '</td><td>' . $this->_phaseFinale . '</td></tr>';
 		}
 	}
 ?>

@@ -1,78 +1,36 @@
 <?php
 	session_start();
-	require_once("Model/BDD.php");
-	$connect = new Connection();
-	if(isset($_GET['registerButton']))
-	{
-		$title="Page d'accueil";
-		$css = "accueil.css";
-		require_once("Model/User.php");
-		$user = new User($connect, $_GET['login'], $_GET['pass'], $_GET['name'], $_GET['mail']);
-		if ($_GET['login']=='' or $_GET['pass']=='')
-		{
-			require_once("Controller/ControllerRegister.php");
-		}
-		else
-		{
-			$user->register();
-			require_once("View/accueil.php");
-		}
-		require_once("Controller/ControllerRegister.php");
-	}
-	elseif(isset($_GET['loginButton']))
-	{
-		$title="Page d'accueil";
-		$css = "accueil.css";
-		require_once("Model/User.php");
-		$user = new User($connect, $_GET['login'], $_GET['pass']);
-		$user->login();
-		require_once("View/accueil.php");
-	}
-	elseif(isset($_GET['logout']))
-	{
-		$title="Page d'accueil";
-		$css = "accueil.css";
-		session_destroy();
-		require_once("View/accueil.php");
-	}
-	elseif(!isset($_GET['page']))
-	{
-		$title="Page d'accueil";
-		$css = "accueil.css";
-		require_once("View/accueil.php");
-	}
-	
-	else
-	{
-		if ($_GET['page']=='client')
-		{
-			$title="Client";
-			$css = "client.css";
-			require_once("Controller/ControllerClient.php");
-		}
-		elseif ($_GET['page']=='admin')
-		{
-			$title="Administrateur";
-			$css = "admin.css";
-			require_once("Controller/ControllerAdmin.php");
-		}
-		elseif ($_GET['page']=='login')
-		{
-			$title="Connexion";
-			$css = "login.css";
-			require_once("Controller/ControllerLogin.php");
-		}
-		elseif ($_GET['page']=='register')
-		{
-			$title="Inscription";
-			$css = "register.css";
-			require_once("Controller/ControllerRegister.php");
-		}
-		else
-		{
-			$title="Erreur d'URL";
-			$css = "UrlError.css";
-			require_once("View/UrlError.php");
-		}
-	}
 ?>
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="Web/CSS/common.css"/>
+		<link rel="stylesheet" type="text/css" href="Web/CSS/accueil.css"/>
+		<meta charset="utf-8"/>
+		<title>Billetterie GPTL - Accueil</title>
+	</head>
+	<body>
+		<header>
+			<h1><a href="index.php">Billetterie</a></h1>
+			<?php
+					if(!isset($_SESSION['login']))
+					{
+						echo '<section id="session_co"><p><a href="index.php?page=login">Connexion</a></p><p>|</p><p><a href="index.php?page=register">Inscription</a></p></section>';
+					}
+					else
+					{
+						echo '<section id="session_co"><p>'. $_SESSION["login"] .'</p><p>|</p><p><a href="index.php?logout=">Déconnexion</a></p></section>';
+					}
+			?>
+		</header>
+		<section id="contenu">
+			<h2>Bienvenue sur la billetterie de Grand Prix Lyon 1 !</h2>
+			<p><a href="Controller/ControllerClient.php">Accéder à la billetterie en tant que client.</a></p>
+			<p><a href="View/UrlError.php">Accéder à la billetterie en tant que responsable des billets.</a></p>
+		</section>
+		<footer>
+			<p>Site créé exclusivement en PHP5, HTML5 et CSS3.</p>
+		</footer>
+	</body>
+</html>

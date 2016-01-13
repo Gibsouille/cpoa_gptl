@@ -5,33 +5,32 @@
 	
 	Class Categorie
 	{
-		private $_nom;
+		private $_nomCategorie;
 		private $_section;
-		private $_match;
+		private $_numMatch;
 		private $_nbPlacesDisponibles;
 		private $_nbPlacesTotal;
 		private $_connect;
 		
-		function __construct($connect, $id=null, $nom=null, $prenom=null)
+		function __construct($connect, $nomCategorie, $section, $numMatch)
 		{
 			$this->_connect=$connect;
-			if ($id!=null){$this->_id=$id;}
-			if ($nom!=null){$this->_nom=$nom;}
-			if ($prenom!=null){$this->_prenom=$prenom;}
+			$this->_nomCategorie=$nomCategorie;
+			$this->_section=$section;
+			$this->_numMatch=$numMatch;
 		}
 		
-		function findActor($id_acteur)
+		function findCategorie()
 		{
-			$requete = 'select nom, prenom
-						from acteurs
-						where id_acteur=:id_acteur;';
+			$requete = 'select nbPlacesDisponibles, nbPlacesTotal
+						from Categorie
+						where numMatch = :numMatch and nomCategorie = :nomCategorie and section = :section;';
 			$query = $this->_connect->getBDD()->prepare($requete);
-			$query ->execute(array('id_acteur' => $id_acteur));
+			$query ->execute(array('numMatch' => $this->_numMatch, 'nomCategorie' => $this->_nomCategorie, 'section' => $this->_section));
 			while($data=$query->fetch())
 			{
-				$this->_id = $id_acteur;
-				$this->_nom = $data[0];
-				$this->_prenom = $data[1];
+				$this->_nbPlacesDisponibles = $data[0];
+				$this->nbPlacesTotal = $data[1];
 			}
 			$query -> closeCursor();
 		}
@@ -40,15 +39,12 @@
 		{
 			switch($param)
 			{
-				case 'id': return $this->_id;
-				case 'nom': return $this->_nom;
-				case 'prenom': return $this->_prenom;
+				case 'nomCategorie': return $this->_nomCategorie;
+				case 'section': return $this->_section;
+				case 'numMatch': return $this->_numMatch;
+				case 'nbPlacesDisponibles': return $this->_nbPlacesDisponibles;
+				case 'nbPlacesTotal': return $this->_nbPlacesTotal;
 			}
-		}
-		
-		function __toString()
-		{
-			return '<tr><td>' . $this->_id . '</td><td>' . $this->_nom . '</td><td>' . $this->_prenom . '</td></tr>';
 		}
 	}
 ?>
