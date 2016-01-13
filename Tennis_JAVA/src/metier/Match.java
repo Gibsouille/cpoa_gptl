@@ -1,170 +1,205 @@
-/***********************************************************************
- * Module:  Match.java
- * Author:  p1402517
- * Purpose: Defines the Class Match
- ***********************************************************************/
-
 package metier;
 
+import accesAuxDonnees.DaoArbitre;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
+import modele.ModelListEquipes;
+import accesAuxDonnees.DaoEquipe;
+import accesAuxDonnees.DaoMatch;
 
-/** @pdOid 98f9c6d3-49d2-4fd9-ba1d-cc0ddce6c3ad */
 public class Match {
-   /** @pdOid b86c0f80-2342-45a7-89b6-12c88706061e */
-   private int numMatch;
-   /** @pdOid 7d03ecc9-287b-4d03-8780-c1a9c7ed99ac */
-   private String typeMatch;
-   /** @pdOid f36b3921-3f05-4ce2-945e-753467e070b8 */
-   private Date date;
-   /** @pdOid 55a71706-937a-44eb-bfd8-f9838496f993 */
-   private String modeJeu;
-   /** @pdOid dafa1ba0-94da-49ab-ba37-8c3f64b54aa9 */
-   private String trancheHoraire;
-   /** @pdOid 97fea6d3-a4a6-4f7d-aa88-672cf15c0385 */
-   private int idEquipeVainqueure;
-   /** @pdOid 6fabd397-7c9e-4728-b1aa-13ddd76f60b8 */
-   private int scoreEquipeGagnante;
-   /** @pdOid 44c192f7-94dc-4c24-bf74-36ec75a81a7b */
-   private int scoreEquipePerdante;
-   
-   /** @pdOid 1df517f0-e789-4df4-989b-c2d2b60ace06 */
-   protected void finalize() {
-      // TODO: implement
-   }
-   
-   /** @pdOid 1f0f6d26-907d-4d3a-adb8-fb1e9e9fb90e */
-   public boolean verifierMatchDisponible() {
-      // TODO: implement
-      return false;
-   }
-   
-   /** @pdOid 779aa561-c594-4951-a156-be8487f4481b */
-   public boolean enregistrerScores() {
-      // TODO: implement
-      return false;
-   }
-   
-   /** @pdOid d70812af-558a-4c96-a67d-8a0b6cbf7815 */
-   public int affecterEquipesAleatoires() {
-      // TODO: implement
-      return 0;
-   }
-   
-   /** @pdOid b42bb458-e57f-47a5-84f1-1802ec6535e4 */
-   public int affecterArbitreChaise() {
-      // TODO: implement
-      return 0;
-   }
-   
-   /** @pdOid 61cf863f-513c-4913-8acc-3722418d9f7b */
-   public int affecterAutresArbitres() {
-      // TODO: implement
-      return 0;
-   }
-   
-   /** @pdOid 904415fa-93e7-4d4a-b86a-8018246e0bf2 */
-   public int affecterEquipesRamasseurs() {
-      // TODO: implement
-      return 0;
-   }
-   
-   /** @pdOid bd015e6d-4bd1-44c9-9267-513a83849081 */
-   public List<Match> getMatchsHorairesLibres() {
-      // TODO: implement
-      return null;
-   }
-   
-   /** @pdOid f3136482-b517-4533-8972-049eccf1a4f1 */
-   public Match() {
-      // TODO: implement
-   }
-   
-   /** @pdOid 29b08e38-2cf9-4ee7-8fc6-f97966ecfee2 */
-   public int getNumMatch() {
-      return numMatch;
-   }
-   
-   /** @param newNumMatch
-    * @pdOid 6fbd6bf2-c183-4089-abbf-cfa10ea1e64f */
-   public void setNumMatch(int newNumMatch) {
-      numMatch = newNumMatch;
-   }
-   
-   /** @pdOid 6e4e9692-c1b7-4422-9fed-4390c5f6ecda */
-   public String getTypeMatch() {
-      return typeMatch;
-   }
-   
-   /** @param newTypeMatch
-    * @pdOid 2759b31c-b370-40e5-af89-dc2d8040bbc7 */
-   public void setTypeMatch(String newTypeMatch) {
-      typeMatch = newTypeMatch;
-   }
-   
-   /** @pdOid f9cd1dec-6a5a-4954-bddb-021fbddfc402 */
-   public Date getDate() {
-      return date;
-   }
-   
-   /** @param newDate
-    * @pdOid e4abdf4a-9d53-40d5-9fb3-52b9768b4fae */
-   public void setDate(Date newDate) {
-      date = newDate;
-   }
-   
-   /** @pdOid e17d6159-adb4-4c5d-9d60-63b48fcd73e1 */
-   public String getModeJeu() {
-      return modeJeu;
-   }
-   
-   /** @param newModeJeu
-    * @pdOid f5a6f765-0ccd-4e43-a3ed-4a9fb7005770 */
-   public void setModeJeu(String newModeJeu) {
-      modeJeu = newModeJeu;
-   }
-   
-   /** @pdOid 84d95278-b3cf-4319-8994-d8a3abae336a */
-   public String getTrancheHoraire() {
-      return trancheHoraire;
-   }
-   
-   /** @param newTrancheHoraire
-    * @pdOid ba745bcc-6e19-4f8a-b680-0e47ae4537a9 */
-   public void setTrancheHoraire(String newTrancheHoraire) {
-      trancheHoraire = newTrancheHoraire;
-   }
-   
-   /** @pdOid f7ee6247-3330-4e00-bf5a-2de69124a96d */
-   public int getIdEquipeVainqueure() {
-      return idEquipeVainqueure;
-   }
-   
-   /** @param newIdEquipeVainqueure
-    * @pdOid b87013f5-d43d-4ff6-a281-8bb3d5c5804a */
-   public void setIdEquipeVainqueure(int newIdEquipeVainqueure) {
-      idEquipeVainqueure = newIdEquipeVainqueure;
-   }
-   
-   /** @pdOid 0acf8045-86e2-459b-a68b-201ef2ceedd2 */
-   public int getScoreEquipeGagnante() {
-      return scoreEquipeGagnante;
-   }
-   
-   /** @param newScoreEquipeGagnante
-    * @pdOid 7d92447b-1c1f-4557-8324-faf1c3a9a91b */
-   public void setScoreEquipeGagnante(int newScoreEquipeGagnante) {
-      scoreEquipeGagnante = newScoreEquipeGagnante;
-   }
-   
-   /** @pdOid 4817dd3f-c73c-4931-8619-b1aa88ce600f */
-   public int getScoreEquipePerdante() {
-      return scoreEquipePerdante;
-   }
-   
-   /** @param newScoreEquipePerdante
-    * @pdOid c65b595e-9355-4c64-bcb2-409c4f4fb65a */
-   public void setScoreEquipePerdante(int newScoreEquipePerdante) {
-      scoreEquipePerdante = newScoreEquipePerdante;
-   }
 
+    private int numMatch;
+    private String typeMatch;
+    private java.sql.Date date;
+    private String modeJeu;
+    private String trancheHoraire;
+    private EquipeJoueurs Equipe1;
+    private EquipeJoueurs Equipe2;
+    private Score score;
+    private int numCourt;
+    private String phase;
+    private Arbitre arbitreDeChaise;
+    private EquipeRamasseurs EquipeRamasseur;
+    private ArrayList<Arbitre> listeArbitre;
+    
+    
+    //public void verifierMatchDisponible(Date date,String trancheHoraire,int numCourt); {}
+
+    public boolean enregistrerScores(Score score, int set1E1, int set1E2, int set2E1, int set2E2, int set3E1, int set3E2, int set4E1, int set4E2, int set5E1, int set5E2) {
+        score = new Score(numMatch,Equipe1.getidEquipe(), Equipe2.getidEquipe(), set1E1, set1E2, set2E1, set2E2, set3E1, set3E2, set4E1, set4E2, set5E1, set5E2);
+        return true;
+    }
+
+    public boolean affecterEquipesAleatoires(ModelListEquipes modeleL) throws SQLException, ClassNotFoundException, IOException /*A finir*/ {
+        int idE1, idE2;
+        DaoEquipe Equipe = new DaoEquipe();
+        modeleL.chargerEquipesBD();
+        idE1 = (int) (Math.random()*100% modeleL.getSize());
+        modeleL.trierEquipesDejaAffectees();
+        idE2 = (int) (Math.random()*100% modeleL.getSize());
+        modeleL.trierEquipesDejaAffectees();
+        Equipe1 = Equipe.recupEquipe(idE1);
+        Equipe2 = Equipe.recupEquipe(idE2);
+        System.out.println(Equipe1 + "2: " + Equipe2);
+        return true;
+    }
+
+    public void affecterArbitreChaise(int idarbitre) throws SQLException, ClassNotFoundException, IOException {
+        DaoArbitre DaoArbitre = new DaoArbitre();
+        Arbitre arbitre = DaoArbitre.recupererArbitre(idarbitre);
+        if (arbitre.getNbMatchsChaiseDouble() > 4 || arbitre.getNbMatchsChaiseSimple() > 4) {
+            System.out.println("Cet arbitre à déjà fait trop de ce type de match");
+        }else if (Equipe1.getJoueur1().getNationalite().equals(arbitre.getNationalite())) {
+            System.out.println("L'arbitre a la meme nationalité que le joueur1 de l'equipe1");
+        } else if (Equipe1.getJoueur2().getNationalite().equals(arbitre.getNationalite())) {
+            System.out.println("L'arbitre a la meme nationalité que le joueur2 de l'equipe1");
+        }else if (Equipe2.getJoueur1().getNationalite().equals(arbitre.getNationalite())) {
+            System.out.println("L'arbitre a la meme nationalité que le joueur1 de l'equipe2");
+        } else if (Equipe2.getJoueur2().getNationalite().equals(arbitre.getNationalite())) {
+            System.out.println("L'arbitre a la meme nationalité que le joueur2 de l'equipe2");
+        } else{
+           arbitreDeChaise = arbitre;
+           DaoArbitre.ajouterArbitreAMatch(idarbitre, numMatch);
+        }
+    }
+
+    public void affecterAutresArbitres(int idArbitre) throws SQLException, ClassNotFoundException, IOException {
+        DaoArbitre DaoArbitre = new DaoArbitre();
+        DaoArbitre.ajouterArbitreAMatch(idArbitre, numMatch);
+        listeArbitre = DaoArbitre.recupererArbitreParMatch(numMatch);    
+    }
+
+    public void affecterEquipesRamasseurs(EquipeRamasseurs EquipeRamasseur) {
+        this.EquipeRamasseur = EquipeRamasseur;
+    }
+
+    public static List<Match> getMatchsHorairesLibres() {
+        DaoMatch DaoMatch = new DaoMatch();
+        return null;
+    }
+
+
+    public Match(int numMatch,int numCourt, String typeMatch, java.sql.Date date, String modeJeu, String trancheHoraire,String phase, EquipeJoueurs Equipe1, EquipeJoueurs Equipe2) {
+        this.numMatch = numMatch;
+        this.numCourt = numCourt;
+        this.typeMatch = typeMatch;
+        this.date = date;
+        this.modeJeu = modeJeu;
+        this.trancheHoraire = trancheHoraire;
+        this.phase = phase;
+        this.Equipe1 = Equipe1;
+        this.Equipe2 = Equipe2;
+    }
+
+    
+    
+    public int getNumMatch() {
+        return numMatch;
+    }
+
+    public void setNumMatch(int numMatch) {
+        this.numMatch = numMatch;
+    }
+
+    public String getTypeMatch() {
+        return typeMatch;
+    }
+
+    public void setTypeMatch(String typeMatch) {
+        this.typeMatch = typeMatch;
+    }
+
+    public java.sql.Date getDate() {
+        return date;
+    }
+
+    public void setDate(java.sql.Date date) {
+        this.date = date;
+    }
+
+    public String getModeJeu() {
+        return modeJeu;
+    }
+
+    public void setModeJeu(String modeJeu) {
+        this.modeJeu = modeJeu;
+    }
+
+    public String getTrancheHoraire() {
+        return trancheHoraire;
+    }
+
+    public void setTrancheHoraire(String trancheHoraire) {
+        this.trancheHoraire = trancheHoraire;
+    }
+
+    public EquipeJoueurs getEquipe1() {
+        return Equipe1;
+    }
+
+    public void setEquipe1(EquipeJoueurs Equipe1) {
+        this.Equipe1 = Equipe1;
+    }
+
+    public EquipeJoueurs getEquipe2() {
+        return Equipe2;
+    }
+
+    public void setEquipe2(EquipeJoueurs Equipe2) {
+        this.Equipe2 = Equipe2;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
+    public int getNumCourt() {
+        return numCourt;
+    }
+
+    public void setNumCourt(int numCourt) {
+        this.numCourt = numCourt;
+    }
+
+    public String getPhase() {
+        return phase;
+    }
+
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
+
+    public Arbitre getArbitreDeChaise() {
+        return arbitreDeChaise;
+    }
+
+    public void setArbitreDeChaise(Arbitre arbitreDeChaise) {
+        this.arbitreDeChaise = arbitreDeChaise;
+    }
+
+    public EquipeRamasseurs getEquipeRamasseur() {
+        return EquipeRamasseur;
+    }
+
+    public void setEquipeRamasseur(EquipeRamasseurs EquipeRamasseur) {
+        this.EquipeRamasseur = EquipeRamasseur;
+    }
+
+    public ArrayList<Arbitre> getListeArbitre() {
+        return listeArbitre;
+    }
+
+    public void setListeArbitre(ArrayList<Arbitre> listeArbitre) {
+        this.listeArbitre = listeArbitre;
+    }
+    
+    
+    
+    
 }

@@ -8,13 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import javax.sql.DataSource;
+import metier.EquipeJoueurs;
+import metier.Joueur;
+
 import metier.Match;
 
 public class DaoMatch extends DAO<Match>{
     
-    public DaoMatch(DataSource ds) {
-        super(ds);
+    public DaoMatch() {
+
     }
     
     @Override
@@ -22,14 +24,14 @@ public class DaoMatch extends DAO<Match>{
         Connection co = Connexion.getConnexion("connexion.properties");
         PreparedStatement pstm = co.prepareStatement("INSERT INTO Matchs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
         pstm.setInt(1, element.getNumMatch());
-        //pstm.setInt(2, element.getNumCourt());
+        pstm.setInt(2, element.getNumCourt());
         pstm.setString(3, element.getTypeMatch());
-        //pstm.setDate(4, (Date) element.getDate());
+        pstm.setDate(4, (Date) element.getDate());
         pstm.setString(5, element.getModeJeu());
         pstm.setString(6, element.getTrancheHoraire());
-        //pstm.setString(7, element.getPhaseFinale());
-        //pstm.setInt(8, element.getIdEquipe1());
-        //pstm.setInt(9, element.getIdEquipe2());
+        pstm.setString(7, element.getPhase());
+        pstm.setInt(8, element.getEquipe1().getidEquipe());
+        pstm.setInt(9, element.getEquipe2().getidEquipe());
         
         pstm.executeUpdate();
         pstm.close();
@@ -40,14 +42,14 @@ public class DaoMatch extends DAO<Match>{
     public void modifier(Match element) throws SQLException, ClassNotFoundException, IOException {
         Connection co = Connexion.getConnexion("connexion.properties");
         PreparedStatement pstm = co.prepareStatement("UPDATE Matchs SET numCourt = ?, typeMatch = ?, dateMatch = ?, modeJeu = ?, trancheHoraire = ?, phaseFinale = ?, idEquipe1 = ?, idEquipe2 = ?;");
-        //pstm.setInt(1, element.getNumCourt());
+        pstm.setInt(1, element.getNumCourt());
         pstm.setString(2, element.getTypeMatch());
-        //pstm.setDate(3, (Date) element.getDate());
+        pstm.setDate(3, (Date) element.getDate());
         pstm.setString(4, element.getModeJeu());
         pstm.setString(5, element.getTrancheHoraire());
-        //pstm.setString(6, element.getPhaseFinale());
-        //pstm.setInt(7, element.getIdEquipe1());
-        //pstm.setInt(8, element.getIdEquipe2());
+        pstm.setString(6, element.getPhase());
+        pstm.setInt(7, element.getEquipe1().getidEquipe());
+        pstm.setInt(8, element.getEquipe2().getidEquipe());
         
         pstm.executeUpdate();
         pstm.close();
@@ -58,26 +60,77 @@ public class DaoMatch extends DAO<Match>{
     public void charger(List<Match> liste) throws SQLException, ClassNotFoundException, IOException {
         Connection co = Connexion.getConnexion("connexion.properties");
         Statement stm = co.createStatement();
-        ResultSet rs = stm.executeQuery("SELECT * FROM Matchs;");
+        PreparedStatement pstmEquipe = co.prepareStatement("SELECT * FROM EquipeJoueurs WHERE idEquipe = ?");
+        ResultSet rsMatchs = stm.executeQuery("SELECT * FROM Matchs;"), rsEquipe;
+        EquipeJoueurs eq1 = null, eq2 = null;
+        Joueur joueur1, joueur2;
+        int idJoueur1, idJoueur2, num, numCourt, idEquipe1, idEquipe2;
+        DaoJoueur daoJoueur = new DaoJoueur();
         
-        while (rs.next()) {
-            int num = rs.getInt("numMatch"), numCourt = rs.getInt("numCourt"), idEquipe1 = rs.getInt("idEquipe1");
-            if (rs.wasNull())
-                idEquipe1 = -1;
+        while (rsMatchs.next()) {
+            num = rsMatchs.getInt("numMatch");
+            numCourt = rsMatchs.getInt("numCourt");
+            idEquipe1 = rsMatchs.getInt("idEquipe1");
             
-            int idEquipe2 = rs.getInt("idEquipe2");
-            if (rs.wasNull())
-                idEquipe2 = -1;
+            if (rsMatchs.wasNull())
+                eq1 = null;
+            else {
+                /* récupération de l'équipe 1 */
+                pstmEquipe.setInt(1, idEquipe1);
+                rsEquipe = pstmEquipe.executeQuery();
+                if (rsEquipe.next()) {
+
+                    /*récupération joueur1 de l'équipe */
+                    idJoueur1 = rsEquipe.getInt("joueur1");
+                    joueur1 = daoJoueur.recupererJoueur(idJoueur1, co);
+
+                    /* récupération joueur2 de l'équipe */
+                    idJoueur2 = rsEquipe.getInt("joueur2");
+                    if (!rsEquipe.wasNull()) {
+                        joueur2 = daoJoueur.recupererJoueur(idJoueur2, co);
+                        eq1 = new EquipeJoueurs(idEquipe1, joueur1, joueur2);
+                    }
+                    else
+                        eq1 = new EquipeJoueurs(idEquipe1, joueur1, null);
+                }
+                rsEquipe.close();
+            }
             
-            String type = rs.getString("typeMatch"), modeJeu = rs.getString("modeJeu"), trancheHoraire = rs.getString("trancheHoraire"),
-                   phaseFinale = rs.getString("phaseFinale");
+            idEquipe2 = rsMatchs.getInt("idEquipe2");
+            if (rsMatchs.wasNull())
+                eq2 = null;
+            else {
+                /* récupération de l'équipe 2 */
+                pstmEquipe.setInt(1, idEquipe1);
+                rsEquipe = pstmEquipe.executeQuery();
+                if (rsEquipe.next()) {
+                
+                    /*récupération joueur1 de l'équipe */
+                    idJoueur1 = rsEquipe.getInt("joueur1");
+                    joueur1 = daoJoueur.recupererJoueur(idJoueur1, co);
+
+                    /* récupération joueur2 de l'équipe */
+                    idJoueur2 = rsEquipe.getInt("joueur2");
+                    if (!rsEquipe.wasNull()) {
+                        joueur2 = daoJoueur.recupererJoueur(idJoueur2, co);
+                        eq2 = new EquipeJoueurs(idEquipe2, joueur1, joueur2);
+                    }
+                    else
+                        eq2 = new EquipeJoueurs(idEquipe2, joueur1, null);
+                }
+                rsEquipe.close();
+            }
             
-            Date date = rs.getDate("date");
+            String type = rsMatchs.getString("typeMatch"), modeJeu = rsMatchs.getString("modeJeu"), trancheHoraire = rsMatchs.getString("trancheHoraire"),
+                   phaseFinale = rsMatchs.getString("phaseFinale");
             
-            //liste.add(new Match(num, numCourt, type, date, modeJeu, trancheHoraire, phaseFinale, idEquipe1, idEquipe2));
+            Date date = rsMatchs.getDate("date");
+            
+            liste.add(new Match(num, numCourt, type, date, modeJeu, trancheHoraire, phaseFinale, eq1, eq2));
         }
         
-        rs.close();
+        pstmEquipe.close();
+        rsMatchs.close();
         stm.close();
         co.close();
     }
@@ -92,5 +145,15 @@ public class DaoMatch extends DAO<Match>{
         pstm.close();
         co.close();
     }
+    
+    
+    public void getMatchsHorairesLibres(Match element) throws SQLException, ClassNotFoundException, IOException{
+        Connection co = Connexion.getConnexion("connexion.properties");
+        PreparedStatement pstm = co.prepareStatement("select dateMatch,trancheHoraire,numCourt from Match where dateMatch != ? and trancheHoraire != ? and numCourt != ?;");
+        
+        pstm.setDate(1, element.getDate());
+        pstm.setString(2, element.getTrancheHoraire());
+        pstm.setInt(3,element.getNumCourt());
+    }   
 
 }

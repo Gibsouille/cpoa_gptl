@@ -36,14 +36,15 @@ public class ModelListEquipes extends AbstractListModel {
     }
     
     public void chargerEquipesBD() throws SQLException, ClassNotFoundException, IOException {
-        this.daoEquipe.charger(listeEquipes);
+        this.daoEquipe.charger(this.listeEquipes);
     }
     
-    private void trierEquipesDejaAffectees() throws SQLException, ClassNotFoundException, IOException {
-        this.daoMatch.charger(listeMatchs);
+    public void trierEquipesDejaAffectees() throws SQLException, ClassNotFoundException, IOException {
+        this.daoEquipe.chargerEquipesAffectees(this.equipesDejaAffectees);
         
-        for (Match m : listeMatchs) {
-            
+        for (EquipeJoueurs eq : this.listeEquipes) {
+            if (this.equipesDejaAffectees.contains(eq))
+                listeEquipes.remove(eq);
         }
     }
 }

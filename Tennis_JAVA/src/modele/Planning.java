@@ -14,34 +14,48 @@ import javax.swing.table.AbstractTableModel;
 import metier.Match;
 
 public class Planning extends AbstractTableModel {
-   private int idPlanning;
-   private String typePlanning;
-   private List<Match> listeMatchs;
-   private DaoMatch dao;
-   private String[] jour = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
+    private int idPlanning;
+    private List<Match> listeMatchs;
+    private List<Match> matchsQualif;
+    private List<Match> matchsSimple;
+    private List<Match> matchsDouble;
+    private DaoMatch dao;
+    private String[] jour = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
+
+    public Planning(int id, DaoMatch dao) {
+        this.idPlanning = id;
+        this.dao = dao;
+        listeMatchs = new ArrayList<>();
+        matchsQualif = new ArrayList<>();
+        matchsSimple = new ArrayList<>();
+        matchsDouble = new ArrayList<>();
+    }
+
+    public void retirerMatch(int index) throws SQLException, ClassNotFoundException, IOException {
+       dao.supprimer(listeMatchs.get(index));
+       listeMatchs.remove(index);
+       this.fireTableDataChanged();
+    }
+
+    public void ajouterMatch(Match match) throws SQLException, ClassNotFoundException, IOException {
+       dao.ajouter(match);
+       listeMatchs.add(match);
+       this.fireTableDataChanged();
+    }
    
-   public Planning(int id, String type, DaoMatch dao) {
-       this.idPlanning = id;
-       this.typePlanning = type;
-       this.dao = dao;
-       listeMatchs = new ArrayList<>();
-   }
-   
-   public void retirerMatch(int index) throws SQLException, ClassNotFoundException, IOException {
-      dao.supprimer(listeMatchs.get(index));
-      listeMatchs.remove(index);
-      this.fireTableDataChanged();
-   }
-   
-   public void ajouterMatch(Match match) throws SQLException, ClassNotFoundException, IOException {
-      dao.ajouter(match);
-      listeMatchs.add(match);
-      this.fireTableDataChanged();
-   }
-   
-   public void charger() throws SQLException, ClassNotFoundException, IOException {
-      dao.charger(listeMatchs);
-   }
+    public void charger() throws SQLException, ClassNotFoundException, IOException {
+        dao.charger(listeMatchs);
+        if (!this.listeMatchs.isEmpty()) {
+        for (Match match : this.listeMatchs) {
+            if (match.getTypeMatch().equals("qualification"))
+                this.matchsQualif.add(match);
+            else if (match.getModeJeu().equals("simple"))
+                this.matchsSimple.add(match);
+            else
+                this.matchsDouble.add(match);
+        }
+        }
+    }
 
     public int getIdPlanning() {
         return idPlanning;
@@ -49,14 +63,6 @@ public class Planning extends AbstractTableModel {
 
     public void setIdPlanning(int idPlanning) {
         this.idPlanning = idPlanning;
-    }
-
-    public String getTypePlanning() {
-        return typePlanning;
-    }
-
-    public void setTypePlanning(String typePlanning) {
-        this.typePlanning = typePlanning;
     }
 
     public List<Match> getListeMatchs() {
@@ -74,9 +80,16 @@ public class Planning extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
+        if (this.listeMatchs.isEmpty())
+            return this.jour.length;
         if (this.listeMatchs.get(0).getTypeMatch().equals("Qualifications"))
             return 2;
         return this.jour.length;
+    }
+    
+    @Override
+    public String getColumnName(int i) {
+        return jour[i];
     }
 
     @Override

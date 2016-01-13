@@ -1,14 +1,22 @@
 package app;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import modele.Planning;
 
 public class Fenetre extends javax.swing.JFrame {
 
-    /**
-     * Creates new form App
-     */
-    public Fenetre() {
-        initComponents();
+    private Planning modelePlanning;
+    
+    public Fenetre(Planning modelePlanning) {
+        this.modelePlanning = modelePlanning;
+        this.initComponents();  // dans planning : entourer les rsEquipe.next() par des if
+        try {
+            modelePlanning.charger();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     /**
@@ -33,24 +41,20 @@ public class Fenetre extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTablePlanning.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"
-            }
-        ));
-        jTablePlanning.setRowSelectionAllowed(false);
+        jTablePlanning.setModel(modelePlanning);
+        jTablePlanning.setCellSelectionEnabled(true);
+        jTablePlanning.getTableHeader().setResizingAllowed(false);
         jTablePlanning.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTablePlanning);
 
         jLabType.setText("Type");
 
         jComBoxType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Qualifications", "Tournois (simple)", "Tournois (double)" }));
+        jComBoxType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComBoxTypeActionPerformed(evt);
+            }
+        });
 
         jBtnGenerer.setText("Générer Planning");
         jBtnGenerer.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +121,7 @@ public class Fenetre extends javax.swing.JFrame {
             .addGap(0, 447, Short.MAX_VALUE)
         );
 
-        jTabbedPane.addTab("Matchs", jPanMatchs);
+        jTabbedPane.addTab("Entraînement", jPanMatchs);
 
         javax.swing.GroupLayout jPanPersonnelLayout = new javax.swing.GroupLayout(jPanPersonnel);
         jPanPersonnel.setLayout(jPanPersonnelLayout);
@@ -159,6 +163,18 @@ public class Fenetre extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }*/
     }//GEN-LAST:event_jBtnGenererActionPerformed
+
+    private void jComBoxTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComBoxTypeActionPerformed
+        if (this.jComBoxType.getSelectedItem().equals("Qualifications")) {
+            
+        }
+        else if (this.jComBoxType.getSelectedItem().equals("Tournois (simple)")) {
+            //this.jTablePlanning.setValueAt(, WIDTH, WIDTH);
+        }
+        else {
+            
+        }
+    }//GEN-LAST:event_jComBoxTypeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnGenerer;

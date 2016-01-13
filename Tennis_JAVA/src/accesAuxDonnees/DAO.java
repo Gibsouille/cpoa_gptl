@@ -6,11 +6,8 @@ import java.util.List;
 import javax.sql.DataSource;
 
 public abstract class DAO<T> {
-    protected DataSource ds;
     
-    public DAO(DataSource ds) {
-        this.ds = ds;
-    }
+    public DAO() {};
     
     public abstract void ajouter(T element) throws SQLException, ClassNotFoundException, IOException;
     public abstract void modifier(T element) throws SQLException, ClassNotFoundException, IOException;
