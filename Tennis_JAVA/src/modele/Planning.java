@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  Planning.java
- * Author:  p1402517
- * Purpose: Defines the Class Planning
- ***********************************************************************/
-
 package modele;
 
 import accesAuxDonnees.DaoMatch;
